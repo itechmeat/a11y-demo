@@ -1,32 +1,23 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import "./App.css";
 
 function App() {
   const dialog = useRef<HTMLDialogElement>(null);
-  const modal = useRef<HTMLDivElement>(null);
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <div>
-      <main>
-        <h1>Welcome bro!</h1>
-        <p>We invite you!</p>
+      <div>
+        <div>
+          <h1>Welcome bro!</h1>
+          <p>We invite you!</p>
+        </div>
 
-        <footer>
+        <div>
           <button tabIndex={1} onClick={() => dialog.current?.show()}>
             Show me dialog
           </button>
-          <button
-            tabIndex={2}
-            onClick={() => {
-              setIsModalVisible(!isModalVisible);
-              modal.current?.focus();
-            }}
-          >
-            {isModalVisible ? "Hide me modal" : "Show me modal"}
-          </button>
-        </footer>
-      </main>
+        </div>
+      </div>
 
       <dialog
         ref={dialog}
@@ -35,27 +26,24 @@ function App() {
         tabIndex={-1}
         onCancel={() => dialog.current?.close()}
       >
-        <h2 id="dialog-title">Dance dance dance</h2>
-        <p id="dialog-description">Lolololo</p>
-        <input type="checkbox" aria-label="Checkbox" />
-        <button aria-label="Close me" onClick={() => dialog.current?.close()}>
-          <span aria-hidden="true">X</span>
-        </button>
+        <main>
+          <h2 id="dialog-title">Dance dance dance</h2>
+          <p id="dialog-description">Lolololo</p>
+          <p>
+            <label aria-label="Checking label">
+              <input type="checkbox" aria-label="Donald Trump" /> Forest Gump
+            </label>
+          </p>
+          <div>
+            <button
+              aria-label="Close me"
+              onClick={() => dialog.current?.close()}
+            >
+              <span aria-hidden="true">X</span>
+            </button>
+          </div>
+        </main>
       </dialog>
-
-      <div
-        hidden={!isModalVisible}
-        ref={modal}
-        aria-modal="true"
-        role="dialog"
-        aria-live="polite"
-        aria-labelledby="dialog-title"
-        aria-describedby="dialog-description"
-      >
-        {/* <button onClick={() => dialog.current?.close()}>X</button> */}
-        <h2 id="dialog-title">Dance dance dance</h2>
-        <p id="dialog-description">Lolololo</p>
-      </div>
     </div>
   );
 }
